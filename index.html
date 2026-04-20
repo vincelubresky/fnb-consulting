@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F&B Senior Living Consulting</title>
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #e2ddd6;
+    --accent: #2d6a4f;
+    --accent-light: #e8f4ee;
+    --accent2: #b5883a;
+    --accent2-light: #fdf3e3;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --danger: #c0392b;
+    --danger-light: #fdecea;
+    --warn: #e67e22;
+    --warn-light: #fef5ec;
+    --success: #27ae60;
+    --success-light: #eafaf1;
+    --radius: 10px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  /* HEADER */
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    position: sticky; top: 0; z-index: 100;
+  }
+  header h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.01em; }
+  header .subtitle { font-size: 0.8rem; opacity: 0.75; margin-top: 2px; }
+  .header-meta { font-size: 0.8rem; opacity: 0.8; text-align: right; }
+
+  /* NAV TABS */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding: 0 24px;
+  }
+  nav button {
+    background: none; border: none; cursor: pointer;
+    padding: 14px 20px; font-size: 0.875rem; font-weight: 500;
+    color: var(--muted); border-bottom: 3px solid transparent;
+    white-space: nowrap; transition: color 0.15s, border-color 0.15s;
+  }
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  nav button:hover { color: var(--text); }
+
+  /* LAYOUT */
+  main { padding: 28px 32px; max-width: 1200px; margin: 0 auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-header h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+  .section-header .count { font-size: 0.8rem; color: var(--muted); margin-left: 8px; }
+
+  /* CARDS GRID */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow);
+    position: relative;
+  }
+  .card .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .card h3 { font-size: 0.95rem; font-weight: 600; }
+  .card .card-meta { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .card .card-body { font-size: 0.85rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .card .card-actions { display: flex; gap: 8px; margin-top: 14px; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    padding: 3px 9px; border-radius: 20px; letter-spacing: 0.02em;
+  }
+  .badge-green { background: var(--success-light); color: var(--success); }
+  .badge-yellow { background: var(--warn-light); color: var(--warn); }
+  .badge-red { background: var(--danger-light); color: var(--danger); }
+  .badge-blue { background: #eaf1fb; color: #2563eb; }
+  .badge-gray { background: #f0f0f0; color: #555; }
+  .badge-accent { background: var(--accent-light); color: var(--accent); }
+  .badge-gold { background: var(--accent2-light); color: var(--accent2); }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 7px 14px; border-radius: 7px; font-size: 0.82rem;
+    font-weight: 500; cursor: pointer; border: none; transition: opacity 0.15s;
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-ghost { background: none; border: 1px solid var(--border); color: var(--muted); }
+  .btn-danger { background: var(--danger-light); color: var(--danger); border: 1px solid #f5c6c2; }
+  .btn-sm { padding: 4px 10px; font-size: 0.76rem; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 1000;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--surface); border-radius: 12px; padding: 28px;
+    width: 100%; max-width: 480px; box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal h3 { font-size: 1rem; font-weight: 700; margin-bottom: 18px; }
+  .form-row { margin-bottom: 14px; }
+  .form-row label { display: block; font-size: 0.8rem; font-weight: 500; margin-bottom: 5px; color: var(--muted); }
+  .form-row input, .form-row select, .form-row textarea {
+    width: 100%; padding: 8px 11px; border: 1px solid var(--border);
+    border-radius: 7px; font-size: 0.875rem; background: #fafaf8;
+    color: var(--text); font-family: inherit;
+  }
+  .form-row textarea { resize: vertical; min-height: 80px; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    outline: none; border-color: var(--accent); background: #fff;
+  }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+  /* STATS ROW */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 24px; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+  }
+  .stat-card .stat-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-bottom: 6px; }
+  .stat-card .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+  .stat-card .stat-sub { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+  /* PIPELINE */
+  .pipeline-columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+  .pipeline-col {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px;
+  }
+  .pipeline-col-header {
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.05em; color: var(--muted); margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .pipeline-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; margin-bottom: 10px;
+    box-shadow: var(--shadow);
+  }
+  .pipeline-item h4 { font-size: 0.875rem; font-weight: 600; }
+  .pipeline-item .pi-meta { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  .pipeline-item .pi-actions { display: flex; gap: 6px; margin-top: 10px; }
+
+  /* CHECKLIST */
+  .checklist-group { margin-bottom: 28px; }
+  .checklist-group h3 { font-size: 0.9rem; font-weight: 700; color: var(--accent); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .checklist-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 0; border-bottom: 1px solid #f0ede8;
+  }
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item input[type=checkbox] { width: 17px; height: 17px; margin-top: 2px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+  .checklist-item .ci-label { flex: 1; font-size: 0.875rem; }
+  .checklist-item .ci-label.done { text-decoration: line-through; color: var(--muted); }
+  .checklist-item .ci-badge { flex-shrink: 0; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { background: #e8e5df; border-radius: 99px; height: 8px; margin-top: 6px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 99px; background: var(--accent); transition: width 0.3s; }
+
+  /* REVENUE */
+  .revenue-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  .revenue-table th {
+    text-align: left; font-size: 0.75rem; font-weight: 600;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em;
+    padding: 10px 14px; border-bottom: 1px solid var(--border); background: #faf9f7;
+  }
+  .revenue-table td { padding: 11px 14px; border-bottom: 1px solid #f0ede8; vertical-align: middle; }
+  .revenue-table tr:last-child td { border-bottom: none; }
+  .revenue-table tr:hover td { background: #faf9f7; }
+  .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+
+  /* BAR CHART */
+  .bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 120px; margin: 20px 0; padding: 0 4px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bar { width: 100%; background: var(--accent); border-radius: 5px 5px 0 0; transition: height 0.4s; min-height: 4px; }
+  .bar-label { font-size: 0.68rem; color: var(--muted); }
+  .bar-val { font-size: 0.68rem; font-weight: 600; color: var(--accent); }
+
+  /* COMPLIANCE */
+  .compliance-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px; margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .compliance-item .ci-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  .compliance-item h4 { font-size: 0.9rem; font-weight: 600; }
+  .compliance-item .ci-body { font-size: 0.84rem; color: var(--muted); margin-top: 8px; line-height: 1.55; }
+  .compliance-item .ci-date { font-size: 0.75rem; color: var(--muted); margin-top: 8px; }
+  .compliance-item .ci-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+  /* EMPTY STATE */
+  .empty { text-align: center; padding: 48px 20px; color: var(--muted); }
+  .empty .empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
+  .empty p { font-size: 0.875rem; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    main { padding: 16px; }
+    header { padding: 14px 16px; }
+    nav { padding: 0 8px; }
+    nav button { padding: 12px 12px; font-size: 0.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>F&amp;B Senior Living Consulting</h1>
+    <div class="subtitle">Operations &amp; Compliance Dashboard</div>
+  </div>
+  <div class="header-meta" id="header-date"></div>
+</header>
+
+<nav id="main-nav">
+  <button class="active" data-section="clients">Active Clients</button>
+  <button data-section="pipeline">Pipeline</button>
+  <button data-section="checklist">Launch Checklist</button>
+  <button data-section="revenue">Revenue</button>
+  <button data-section="compliance">Compliance Notes</button>
+</nav>
+
+<main>
+
+  <!-- ─── ACTIVE CLIENTS ─── -->
+  <section id="clients" class="section active">
+    <div class="stats-row" id="client-stats"></div>
+    <div class="section-header">
+      <div><h2>Active Clients <span class="count" id="client-count"></span></h2></div>
+      <button class="btn btn-primary" onclick="openModal('client')">+ Add Client</button>
+    </div>
+    <div class="card-grid" id="client-list"></div>
+  </section>
+
+  <!-- ─── PIPELINE ─── -->
+  <section id="pipeline" class="section">
+    <div class="section-header">
+      <h2>Pipeline &amp; Prospects</h2>
+      <button class="btn btn-primary" onclick="openModal('prospect')">+ Add Prospect</button>
+    </div>
+    <div class="pipeline-columns" id="pipeline-board"></div>
+  </section>
+
+  <!-- ─── LAUNCH CHECKLIST ─── -->
+  <section id="checklist" class="section">
+    <div class="section-header">
+      <div>
+        <h2>Launch Checklist Tracker</h2>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:4px;" id="checklist-progress-label"></div>
+      </div>
+      <button class="btn btn-primary" onclick="openModal('checklist')">+ Add Item</button>
+    </div>
+    <div style="margin-bottom:20px;">
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:4px;">Overall Progress</div>
+      <div class="progress-wrap"><div class="progress-bar" id="overall-progress"></div></div>
+    </div>
+    <div id="checklist-board"></div>
+  </section>
+
+  <!-- ─── REVENUE ─── -->
+  <section id="revenue" class="section">
+    <div class="stats-row" id="revenue-stats"></div>
+    <div class="section-header">
+      <h2>Revenue Tracker</h2>
+      <button class="btn btn-primary" onclick="openModal('revenue')">+ Add Entry</button>
+    </div>
+    <div style="margin-bottom:24px;">
+      <div style="font-size:0.8rem;color:var(--muted);margin-bottom:2px;">Monthly Revenue</div>
+      <div class="bar-chart" id="rev-chart"></div>
+    </div>
+    <div class="table-wrap">
+      <table class="revenue-table">
+        <thead><tr>
+          <th>Client</th><th>Service</th><th>Amount</th><th>Month</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody id="revenue-rows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ─── COMPLIANCE ─── -->
+  <section id="compliance" class="section">
+    <div class="section-header">
+      <h2>Compliance Notes</h2>
+      <button class="btn btn-primary" onclick="openModal('compliance')">+ Add Note</button>
+    </div>
+    <div id="compliance-list"></div>
+  </section>
+
+</main>
+
+<!-- ════════════════ MODALS ════════════════ -->
+
+<!-- Client Modal -->
+<div class="modal-overlay" id="modal-client">
+  <div class="modal">
+    <h3 id="modal-client-title">Add Client</h3>
+    <input type="hidden" id="client-edit-id" />
+    <div class="form-row"><label>Facility Name</label><input id="c-name" placeholder="e.g. Sunrise Gardens Senior Living" /></div>
+    <div class="form-row"><label>Contact Name</label><input id="c-contact" placeholder="Director of Dining Services" /></div>
+    <div class="form-row"><label>Location</label><input id="c-location" placeholder="City, State" /></div>
+    <div class="form-row"><label>Engagement Type</label>
+      <select id="c-type">
+        <option>Full F&B Overhaul</option>
+        <option>Menu Development</option>
+        <option>Compliance Audit</option>
+        <option>Staff Training</option>
+        <option>Operational Review</option>
+        <option>Procurement Optimization</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Status</label>
+      <select id="c-status">
+        <option value="active">Active</option>
+        <option value="onboarding">Onboarding</option>
+        <option value="paused">Paused</option>
+        <option value="complete">Complete</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Start Date</label><input type="date" id="c-start" /></div>
+    <div class="form-row"><label>Monthly Retainer ($)</label><input type="number" id="c-retainer" placeholder="0" /></div>
+    <div class="form-row"><label>Notes</label><textarea id="c-notes" placeholder="Key priorities, contacts, context…"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('client')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveClient()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prospect Modal -->
+<div class="modal-overlay" id="modal-prospect">
+  <div class="modal">
+    <h3 id="modal-prospect-title">Add Prospect</h3>
+    <input type="hidden" id="prospect-edit-id" />
+    <div class="form-row"><label>Facility Name</label><input id="p-name" placeholder="Prospect name" /></div>
+    <div class="form-row"><label>Contact</label><input id="p-contact" placeholder="Name / Title" /></div>
+    <div class="form-row"><label>Location</label><input id="p-location" placeholder="City, State" /></div>
+    <div class="form-row"><label>Stage</label>
+      <select id="p-stage">
+        <option value="lead">Lead</option>
+        <option value="discovery">Discovery</option>
+        <option value="proposal">Proposal Sent</option>
+        <option value="negotiation">Negotiation</option>
+        <option value="closed-won">Closed Won</option>
+        <option value="closed-lost">Closed Lost</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Est. Value ($)</label><input type="number" id="p-value" placeholder="0" /></div>
+    <div class="form-row"><label>Next Action</label><input id="p-action" placeholder="e.g. Follow-up call Thursday" /></div>
+    <div class="form-row"><label>Follow-up Date</label><input type="date" id="p-followup" /></div>
+    <div class="form-row"><label>Notes</label><textarea id="p-notes" placeholder="Context, referral source, pain points…"></textarea></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('prospect')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProspect()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Checklist Modal -->
+<div class="modal-overlay" id="modal-checklist">
+  <div class="modal">
+    <h3>Add Checklist Item</h3>
+    <input type="hidden" id="check-edit-id" />
+    <div class="form-row"><label>Task</label><input id="ch-task" placeholder="e.g. Conduct opening inventory audit" /></div>
+    <div class="form-row"><label>Phase</label>
+      <select id="ch-phase">
+        <option>Pre-Launch</option>
+        <option>Week 1</option>
+        <option>Week 2–4</option>
+        <option>Month 2–3</option>
+        <option>Ongoing</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Priority</label>
+      <select id="ch-priority">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Due Date</label><input type="date" id="ch-due" /></div>
+    <div class="form-row"><label>Assigned To</label><input id="ch-owner" placeholder="Name or role" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('checklist')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveChecklist()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Revenue Modal -->
+<div class="modal-overlay" id="modal-revenue">
+  <div class="modal">
+    <h3 id="modal-revenue-title">Add Revenue Entry</h3>
+    <input type="hidden" id="rev-edit-id" />
+    <div class="form-row"><label>Client</label><input id="r-client" placeholder="Client or facility name" /></div>
+    <div class="form-row"><label>Service</label>
+      <select id="r-service">
+        <option>Retainer</option>
+        <option>Project Fee</option>
+        <option>Training</option>
+        <option>Audit</option>
+        <option>Menu Development</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Amount ($)</label><input type="number" id="r-amount" placeholder="0" /></div>
+    <div class="form-row"><label>Month</label><input type="month" id="r-month" /></div>
+    <div class="form-row"><label>Status</label>
+      <select id="r-status">
+        <option value="invoiced">Invoiced</option>
+        <option value="paid">Paid</option>
+        <option value="pending">Pending</option>
+        <option value="overdue">Overdue</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('revenue')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveRevenue()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Compliance Modal -->
+<div class="modal-overlay" id="modal-compliance">
+  <div class="modal">
+    <h3 id="modal-compliance-title">Add Compliance Note</h3>
+    <input type="hidden" id="comp-edit-id" />
+    <div class="form-row"><label>Title</label><input id="comp-title" placeholder="e.g. HACCP Plan Update – Sunrise Gardens" /></div>
+    <div class="form-row"><label>Client / Facility</label><input id="comp-client" placeholder="Facility name or 'General'" /></div>
+    <div class="form-row"><label>Category</label>
+      <select id="comp-cat">
+        <option>HACCP</option>
+        <option>Health Inspection</option>
+        <option>State Licensing</option>
+        <option>Allergen Management</option>
+        <option>Dietary Regulations</option>
+        <option>Staff Certification</option>
+        <option>Equipment Compliance</option>
+        <option>Vendor/Procurement</option>
+        <option>CMS / Medicare</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Severity</label>
+      <select id="comp-sev">
+        <option value="info">Info / Note</option>
+        <option value="watch">Watch</option>
+        <option value="action">Action Required</option>
+        <option value="critical">Critical</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Details</label><textarea id="comp-body" placeholder="Describe the finding, requirement, or note…"></textarea></div>
+    <div class="form-row"><label>Due / Review Date</label><input type="date" id="comp-due" /></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('compliance')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveCompliance()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Storage helpers ──────────────────────────────────────────
+const store = {
+  get: k => JSON.parse(localStorage.getItem(k) || '[]'),
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+};
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2);
+
+// ── Navigation ───────────────────────────────────────────────
+document.querySelectorAll('#main-nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#main-nav button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.section).classList.add('active');
+    renderAll();
+  });
+});
+
+// ── Header date ──────────────────────────────────────────────
+const today = new Date();
+document.getElementById('header-date').innerHTML =
+  today.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) +
+  '<br>FY ' + today.getFullYear();
+
+// ── Modal helpers ────────────────────────────────────────────
+function openModal(type, id) {
+  clearForm(type);
+  if (id) loadForm(type, id);
+  document.getElementById('modal-' + type).classList.add('open');
+}
+function closeModal(type) {
+  document.getElementById('modal-' + type).classList.remove('open');
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+function clearForm(type) {
+  const forms = {
+    client: ['client-edit-id','c-name','c-contact','c-location','c-notes','c-start','c-retainer'],
+    prospect: ['prospect-edit-id','p-name','p-contact','p-location','p-action','p-followup','p-notes','p-value'],
+    checklist: ['check-edit-id','ch-task','ch-due','ch-owner'],
+    revenue: ['rev-edit-id','r-client','r-amount','r-month'],
+    compliance: ['comp-edit-id','comp-title','comp-client','comp-body','comp-due'],
+  };
+  (forms[type] || []).forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  const titles = { client:'Add Client', prospect:'Add Prospect', revenue:'Add Revenue Entry', compliance:'Add Compliance Note' };
+  const t = document.getElementById('modal-' + type + '-title');
+  if (t) t.textContent = titles[type];
+}
+
+function loadForm(type, id) {
+  const map = { client:'clients', prospect:'prospects', checklist:'checklists', revenue:'revenues', compliance:'compliances' };
+  const item = store.get(map[type]).find(x => x.id === id);
+  if (!item) return;
+  if (type === 'client') {
+    document.getElementById('client-edit-id').value = id;
+    document.getElementById('c-name').value = item.name || '';
+    document.getElementById('c-contact').value = item.contact || '';
+    document.getElementById('c-location').value = item.location || '';
+    document.getElementById('c-type').value = item.type || '';
+    document.getElementById('c-status').value = item.status || 'active';
+    document.getElementById('c-start').value = item.start || '';
+    document.getElementById('c-retainer').value = item.retainer || '';
+    document.getElementById('c-notes').value = item.notes || '';
+    document.getElementById('modal-client-title').textContent = 'Edit Client';
+  } else if (type === 'prospect') {
+    document.getElementById('prospect-edit-id').value = id;
+    document.getElementById('p-name').value = item.name || '';
+    document.getElementById('p-contact').value = item.contact || '';
+    document.getElementById('p-location').value = item.location || '';
+    document.getElementById('p-stage').value = item.stage || 'lead';
+    document.getElementById('p-value').value = item.value || '';
+    document.getElementById('p-action').value = item.action || '';
+    document.getElementById('p-followup').value = item.followup || '';
+    document.getElementById('p-notes').value = item.notes || '';
+    document.getElementById('modal-prospect-title').textContent = 'Edit Prospect';
+  } else if (type === 'revenue') {
+    document.getElementById('rev-edit-id').value = id;
+    document.getElementById('r-client').value = item.client || '';
+    document.getElementById('r-service').value = item.service || '';
+    document.getElementById('r-amount').value = item.amount || '';
+    document.getElementById('r-month').value = item.month || '';
+    document.getElementById('r-status').value = item.status || 'invoiced';
+    document.getElementById('modal-revenue-title').textContent = 'Edit Revenue Entry';
+  } else if (type === 'compliance') {
+    document.getElementById('comp-edit-id').value = id;
+    document.getElementById('comp-title').value = item.title || '';
+    document.getElementById('comp-client').value = item.client || '';
+    document.getElementById('comp-cat').value = item.cat || '';
+    document.getElementById('comp-sev').value = item.sev || 'info';
+    document.getElementById('comp-body').value = item.body || '';
+    document.getElementById('comp-due').value = item.due || '';
+    document.getElementById('modal-compliance-title').textContent = 'Edit Compliance Note';
+  }
+}
+
+// ── Badge helpers ────────────────────────────────────────────
+const statusBadge = s => ({
+  active: 'badge-green', onboarding: 'badge-gold', paused: 'badge-gray',
+  complete: 'badge-blue', lead: 'badge-gray', discovery: 'badge-blue',
+  proposal: 'badge-gold', negotiation: 'badge-yellow', 'closed-won': 'badge-green',
+  'closed-lost': 'badge-red', invoiced: 'badge-blue', paid: 'badge-green',
+  pending: 'badge-gray', overdue: 'badge-red',
+}[s] || 'badge-gray');
+
+const sevBadge = s => ({ info: 'badge-blue', watch: 'badge-yellow', action: 'badge-gold', critical: 'badge-red' }[s] || 'badge-gray');
+const sevLabel = s => ({ info: 'Info', watch: 'Watch', action: 'Action Required', critical: 'CRITICAL' }[s] || s);
+
+const priBadge = p => ({ high: 'badge-red', medium: 'badge-yellow', low: 'badge-gray' }[p] || 'badge-gray');
+
+const fmtMoney = n => '$' + (Number(n) || 0).toLocaleString('en-US');
+
+function fmtDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+// ── CLIENTS ──────────────────────────────────────────────────
+function saveClient() {
+  const items = store.get('clients');
+  const id = document.getElementById('client-edit-id').value || uid();
+  const item = {
+    id, name: document.getElementById('c-name').value,
+    contact: document.getElementById('c-contact').value,
+    location: document.getElementById('c-location').value,
+    type: document.getElementById('c-type').value,
+    status: document.getElementById('c-status').value,
+    start: document.getElementById('c-start').value,
+    retainer: document.getElementById('c-retainer').value,
+    notes: document.getElementById('c-notes').value,
+  };
+  if (!item.name) { alert('Please enter a facility name.'); return; }
+  const idx = items.findIndex(x => x.id === id);
+  if (idx >= 0) items[idx] = item; else items.push(item);
+  store.set('clients', items);
+  closeModal('client');
+  renderClients();
+}
+
+function deleteClient(id) {
+  if (!confirm('Delete this client?')) return;
+  store.set('clients', store.get('clients').filter(x => x.id !== id));
+  renderClients();
+}
+
+function renderClients() {
+  const items = store.get('clients');
+  const active = items.filter(x => x.status === 'active').length;
+  const totalRetainer = items.filter(x => x.status === 'active').reduce((s, x) => s + Number(x.retainer || 0), 0);
+
+  document.getElementById('client-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total Clients</div><div class="stat-value">${items.length}</div><div class="stat-sub">all engagements</div></div>
+    <div class="stat-card"><div class="stat-label">Active</div><div class="stat-value" style="color:var(--success)">${active}</div><div class="stat-sub">in progress</div></div>
+    <div class="stat-card"><div class="stat-label">Monthly Retainers</div><div class="stat-value">${fmtMoney(totalRetainer)}</div><div class="stat-sub">active clients</div></div>
+    <div class="stat-card"><div class="stat-label">Onboarding</div><div class="stat-value" style="color:var(--accent2)">${items.filter(x=>x.status==='onboarding').length}</div><div class="stat-sub">new engagements</div></div>
+  `;
+  document.getElementById('client-count').textContent = `(${items.length})`;
+
+  const list = document.getElementById('client-list');
+  if (!items.length) {
+    list.innerHTML = '<div class="empty"><div class="empty-icon">🏥</div><p>No clients yet. Add your first client.</p></div>';
+    return;
+  }
+  list.innerHTML = items.map(c => `
+    <div class="card">
+      <div class="card-top">
+        <div>
+          <h3>${esc(c.name)}</h3>
+          <div class="card-meta">${esc(c.location || '')}${c.contact ? ' · ' + esc(c.contact) : ''}</div>
+        </div>
+        <span class="badge ${statusBadge(c.status)}">${c.status}</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <span class="badge badge-accent" style="font-size:0.7rem">${esc(c.type)}</span>
+        ${c.retainer ? `<span class="badge badge-gold" style="font-size:0.7rem">${fmtMoney(c.retainer)}/mo</span>` : ''}
+        ${c.start ? `<span class="badge badge-gray" style="font-size:0.7rem">Since ${fmtDate(c.start)}</span>` : ''}
+      </div>
+      ${c.notes ? `<div class="card-body">${esc(c.notes)}</div>` : ''}
+      <div class="card-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openModal('client','${c.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteClient('${c.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── PIPELINE ─────────────────────────────────────────────────
+const STAGES = [
+  { key: 'lead', label: 'Lead' },
+  { key: 'discovery', label: 'Discovery' },
+  { key: 'proposal', label: 'Proposal Sent' },
+  { key: 'negotiation', label: 'Negotiation' },
+  { key: 'closed-won', label: 'Closed Won' },
+  { key: 'closed-lost', label: 'Closed Lost' },
+];
+
+function saveProspect() {
+  const items = store.get('prospects');
+  const id = document.getElementById('prospect-edit-id').value || uid();
+  const item = {
+    id, name: document.getElementById('p-name').value,
+    contact: document.getElementById('p-contact').value,
+    location: document.getElementById('p-location').value,
+    stage: document.getElementById('p-stage').value,
+    value: document.getElementById('p-value').value,
+    action: document.getElementById('p-action').value,
+    followup: document.getElementById('p-followup').value,
+    notes: document.getElementById('p-notes').value,
+  };
+  if (!item.name) { alert('Please enter a name.'); return; }
+  const idx = items.findIndex(x => x.id === id);
+  if (idx >= 0) items[idx] = item; else items.push(item);
+  store.set('prospects', items);
+  closeModal('prospect');
+  renderPipeline();
+}
+
+function deleteProspect(id) {
+  if (!confirm('Delete this prospect?')) return;
+  store.set('prospects', store.get('prospects').filter(x => x.id !== id));
+  renderPipeline();
+}
+
+function moveStage(id, dir) {
+  const items = store.get('prospects');
+  const item = items.find(x => x.id === id);
+  if (!item) return;
+  const idx = STAGES.findIndex(s => s.key === item.stage);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= STAGES.length) return;
+  item.stage = STAGES[newIdx].key;
+  store.set('prospects', items);
+  renderPipeline();
+}
+
+function renderPipeline() {
+  const items = store.get('prospects');
+  const board = document.getElementById('pipeline-board');
+  board.innerHTML = STAGES.map(stage => {
+    const cols = items.filter(x => x.stage === stage.key);
+    const total = cols.reduce((s, x) => s + Number(x.value || 0), 0);
+    return `
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <span>${stage.label}</span>
+          <span class="badge ${statusBadge(stage.key)}">${cols.length}</span>
+        </div>
+        ${total ? `<div style="font-size:0.72rem;color:var(--muted);margin-bottom:10px;">Est. ${fmtMoney(total)}</div>` : ''}
+        ${cols.map(p => `
+          <div class="pipeline-item">
+            <h4>${esc(p.name)}</h4>
+            <div class="pi-meta">${esc(p.location || '')}${p.contact ? '<br>' + esc(p.contact) : ''}</div>
+            ${p.value ? `<div class="pi-meta" style="margin-top:4px;font-weight:600;color:var(--accent2)">${fmtMoney(p.value)}</div>` : ''}
+            ${p.action ? `<div class="pi-meta" style="margin-top:6px;">→ ${esc(p.action)}</div>` : ''}
+            ${p.followup ? `<div class="pi-meta">Due: ${fmtDate(p.followup)}</div>` : ''}
+            <div class="pi-actions">
+              <button class="btn btn-ghost btn-sm" onclick="openModal('prospect','${p.id}')">Edit</button>
+              ${stage.key !== 'lead' ? `<button class="btn btn-ghost btn-sm" onclick="moveStage('${p.id}',-1)">◀</button>` : ''}
+              ${stage.key !== 'closed-lost' ? `<button class="btn btn-ghost btn-sm" onclick="moveStage('${p.id}',1)">▶</button>` : ''}
+              <button class="btn btn-danger btn-sm" onclick="deleteProspect('${p.id}')">✕</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+// ── CHECKLIST ────────────────────────────────────────────────
+const PHASES = ['Pre-Launch', 'Week 1', 'Week 2–4', 'Month 2–3', 'Ongoing'];
+
+function saveChecklist() {
+  const items = store.get('checklists');
+  const id = document.getElementById('check-edit-id').value || uid();
+  const item = {
+    id,
+    task: document.getElementById('ch-task').value,
+    phase: document.getElementById('ch-phase').value,
+    priority: document.getElementById('ch-priority').value,
+    due: document.getElementById('ch-due').value,
+    owner: document.getElementById('ch-owner').value,
+    done: false,
+  };
+  if (!item.task) { alert('Please enter a task.'); return; }
+  const existing = items.find(x => x.id === id);
+  if (existing) { item.done = existing.done; const idx = items.indexOf(existing); items[idx] = item; }
+  else items.push(item);
+  store.set('checklists', items);
+  closeModal('checklist');
+  renderChecklist();
+}
+
+function toggleCheck(id) {
+  const items = store.get('checklists');
+  const item = items.find(x => x.id === id);
+  if (item) item.done = !item.done;
+  store.set('checklists', items);
+  renderChecklist();
+}
+
+function deleteCheck(id) {
+  store.set('checklists', store.get('checklists').filter(x => x.id !== id));
+  renderChecklist();
+}
+
+function renderChecklist() {
+  const items = store.get('checklists');
+  const done = items.filter(x => x.done).length;
+  const pct = items.length ? Math.round(done / items.length * 100) : 0;
+
+  document.getElementById('checklist-progress-label').textContent = `${done} of ${items.length} complete (${pct}%)`;
+  document.getElementById('overall-progress').style.width = pct + '%';
+
+  const board = document.getElementById('checklist-board');
+  if (!items.length) {
+    board.innerHTML = '<div class="empty"><div class="empty-icon">✅</div><p>No checklist items yet. Add your first launch task.</p></div>';
+    return;
+  }
+
+  board.innerHTML = PHASES.map(phase => {
+    const phaseItems = items.filter(x => x.phase === phase);
+    if (!phaseItems.length) return '';
+    const phaseDone = phaseItems.filter(x => x.done).length;
+    const phasePct = Math.round(phaseDone / phaseItems.length * 100);
+    return `
+      <div class="checklist-group">
+        <h3>${phase} <span style="font-weight:400;color:var(--muted);font-size:0.8rem">${phaseDone}/${phaseItems.length} · ${phasePct}%</span></h3>
+        <div class="progress-wrap" style="margin-bottom:12px;"><div class="progress-bar" style="width:${phasePct}%"></div></div>
+        ${phaseItems.map(item => `
+          <div class="checklist-item">
+            <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleCheck('${item.id}')" />
+            <div class="ci-label ${item.done ? 'done' : ''}">
+              <div>${esc(item.task)}</div>
+              ${item.owner || item.due ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:3px;">${item.owner ? '👤 ' + esc(item.owner) : ''}${item.owner && item.due ? '  ' : ''}${item.due ? '📅 ' + fmtDate(item.due) : ''}</div>` : ''}
+            </div>
+            <span class="badge ${priBadge(item.priority)} ci-badge">${item.priority}</span>
+            <button class="btn btn-danger btn-sm" onclick="deleteCheck('${item.id}')" style="flex-shrink:0">✕</button>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+// ── REVENUE ──────────────────────────────────────────────────
+function saveRevenue() {
+  const items = store.get('revenues');
+  const id = document.getElementById('rev-edit-id').value || uid();
+  const item = {
+    id,
+    client: document.getElementById('r-client').value,
+    service: document.getElementById('r-service').value,
+    amount: document.getElementById('r-amount').value,
+    month: document.getElementById('r-month').value,
+    status: document.getElementById('r-status').value,
+  };
+  if (!item.client || !item.amount) { alert('Please fill in client and amount.'); return; }
+  const idx = items.findIndex(x => x.id === id);
+  if (idx >= 0) items[idx] = item; else items.push(item);
+  store.set('revenues', items);
+  closeModal('revenue');
+  renderRevenue();
+}
+
+function deleteRevenue(id) {
+  if (!confirm('Delete this entry?')) return;
+  store.set('revenues', store.get('revenues').filter(x => x.id !== id));
+  renderRevenue();
+}
+
+function renderRevenue() {
+  const items = store.get('revenues');
+  const total = items.reduce((s, x) => s + Number(x.amount || 0), 0);
+  const paid = items.filter(x => x.status === 'paid').reduce((s, x) => s + Number(x.amount || 0), 0);
+  const outstanding = items.filter(x => ['invoiced','overdue'].includes(x.status)).reduce((s, x) => s + Number(x.amount || 0), 0);
+
+  document.getElementById('revenue-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Total Logged</div><div class="stat-value">${fmtMoney(total)}</div><div class="stat-sub">all entries</div></div>
+    <div class="stat-card"><div class="stat-label">Paid / Collected</div><div class="stat-value" style="color:var(--success)">${fmtMoney(paid)}</div></div>
+    <div class="stat-card"><div class="stat-label">Outstanding</div><div class="stat-value" style="color:var(--warn)">${fmtMoney(outstanding)}</div><div class="stat-sub">invoiced + overdue</div></div>
+    <div class="stat-card"><div class="stat-label">Entries</div><div class="stat-value">${items.length}</div></div>
+  `;
+
+  // Bar chart — last 6 months
+  const months = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(); d.setMonth(d.getMonth() - i);
+    const key = d.toISOString().slice(0, 7);
+    const label = d.toLocaleDateString('en-US', { month: 'short' });
+    const val = items.filter(x => x.month === key).reduce((s, x) => s + Number(x.amount || 0), 0);
+    months.push({ key, label, val });
+  }
+  const maxVal = Math.max(...months.map(m => m.val), 1);
+  document.getElementById('rev-chart').innerHTML = months.map(m => `
+    <div class="bar-col">
+      <div class="bar-val">${m.val ? fmtMoney(m.val) : ''}</div>
+      <div class="bar" style="height:${Math.round(m.val / maxVal * 90)}px;background:${m.val ? 'var(--accent)' : '#e0ddd7'}"></div>
+      <div class="bar-label">${m.label}</div>
+    </div>
+  `).join('');
+
+  const tbody = document.getElementById('revenue-rows');
+  if (!items.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px">No revenue entries yet.</td></tr>';
+    return;
+  }
+  const sorted = [...items].sort((a, b) => (b.month || '').localeCompare(a.month || ''));
+  tbody.innerHTML = sorted.map(r => `
+    <tr>
+      <td style="font-weight:500">${esc(r.client)}</td>
+      <td>${esc(r.service)}</td>
+      <td style="font-weight:600;color:var(--accent)">${fmtMoney(r.amount)}</td>
+      <td>${r.month ? new Date(r.month + '-02').toLocaleDateString('en-US',{month:'short',year:'numeric'}) : ''}</td>
+      <td><span class="badge ${statusBadge(r.status)}">${r.status}</span></td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="openModal('revenue','${r.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteRevenue('${r.id}')">✕</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── COMPLIANCE ───────────────────────────────────────────────
+function saveCompliance() {
+  const items = store.get('compliances');
+  const id = document.getElementById('comp-edit-id').value || uid();
+  const item = {
+    id,
+    title: document.getElementById('comp-title').value,
+    client: document.getElementById('comp-client').value,
+    cat: document.getElementById('comp-cat').value,
+    sev: document.getElementById('comp-sev').value,
+    body: document.getElementById('comp-body').value,
+    due: document.getElementById('comp-due').value,
+    created: new Date().toISOString().slice(0, 10),
+  };
+  if (!item.title) { alert('Please enter a title.'); return; }
+  const idx = items.findIndex(x => x.id === id);
+  if (idx >= 0) { item.created = items[idx].created; items[idx] = item; } else items.push(item);
+  store.set('compliances', items);
+  closeModal('compliance');
+  renderCompliance();
+}
+
+function deleteCompliance(id) {
+  if (!confirm('Delete this note?')) return;
+  store.set('compliances', store.get('compliances').filter(x => x.id !== id));
+  renderCompliance();
+}
+
+function renderCompliance() {
+  const items = store.get('compliances');
+  const list = document.getElementById('compliance-list');
+  if (!items.length) {
+    list.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><p>No compliance notes yet.</p></div>';
+    return;
+  }
+  const order = { critical: 0, action: 1, watch: 2, info: 3 };
+  const sorted = [...items].sort((a, b) => (order[a.sev] ?? 9) - (order[b.sev] ?? 9));
+  list.innerHTML = sorted.map(c => `
+    <div class="compliance-item" style="border-left:4px solid ${{ critical:'var(--danger)', action:'var(--warn)', watch:'#f0c040', info:'#4a90d9' }[c.sev] || '#ccc'}">
+      <div class="ci-top">
+        <div>
+          <h4>${esc(c.title)}</h4>
+          <div style="font-size:0.78rem;color:var(--muted);margin-top:4px;">${esc(c.client || '')} · ${esc(c.cat)}</div>
+        </div>
+        <span class="badge ${sevBadge(c.sev)}">${sevLabel(c.sev)}</span>
+      </div>
+      ${c.body ? `<div class="ci-body">${esc(c.body)}</div>` : ''}
+      <div class="ci-date">${c.due ? '📅 Review by ' + fmtDate(c.due) + '  · ' : ''}Added ${fmtDate(c.created)}</div>
+      <div class="ci-actions">
+        <button class="btn btn-ghost btn-sm" onclick="openModal('compliance','${c.id}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteCompliance('${c.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Escape helper ────────────────────────────────────────────
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Seed demo data (only if empty) ───────────────────────────
+function seedIfEmpty() {
+  if (!store.get('clients').length) {
+    store.set('clients', [
+      { id: uid(), name: 'Sunrise Gardens Senior Living', contact: 'Janet Morales, Director of Dining', location: 'Sacramento, CA', type: 'Full F&B Overhaul', status: 'active', start: '2026-01-15', retainer: '4500', notes: 'Full dining program restructure. Focus on texture-modified diets and resident satisfaction scores.' },
+      { id: uid(), name: 'Pineview Memory Care', contact: 'Tom Okafor, Administrator', location: 'Portland, OR', type: 'Menu Development', status: 'active', start: '2026-02-01', retainer: '2800', notes: 'Dementia-appropriate menu redesign. Finger food expansion and snack station audit in progress.' },
+      { id: uid(), name: 'Heritage Pines Retirement', contact: 'Lisa Nguyen, DON', location: 'Denver, CO', type: 'Compliance Audit', status: 'onboarding', start: '2026-04-10', retainer: '3200', notes: 'State survey prep. Kitchen walkthroughs scheduled for late April.' },
+    ]);
+  }
+  if (!store.get('prospects').length) {
+    store.set('prospects', [
+      { id: uid(), name: 'Oakwood Continuing Care', contact: 'Rachel Green, CEO', location: 'Austin, TX', stage: 'proposal', value: '42000', action: 'Follow up on proposal', followup: '2026-04-25', notes: 'Referred by Janet Morales. Interested in full program overhaul.' },
+      { id: uid(), name: 'Lakeview Assisted Living', contact: 'Mark Davis', location: 'Chicago, IL', stage: 'discovery', value: '18000', action: 'Discovery call scheduled', followup: '2026-04-23', notes: 'Reached out after CMS survey issues.' },
+      { id: uid(), name: 'Magnolia Court Senior Suites', contact: 'Carol White, COO', location: 'Atlanta, GA', stage: 'lead', value: '25000', action: 'Send intro email', followup: '2026-04-22', notes: 'Cold outreach, ALFA conference contact.' },
+    ]);
+  }
+  if (!store.get('checklists').length) {
+    store.set('checklists', [
+      { id: uid(), task: 'Conduct opening inventory and food cost baseline audit', phase: 'Pre-Launch', priority: 'high', due: '2026-04-28', owner: 'Lead Consultant', done: true },
+      { id: uid(), task: 'Review and update HACCP plan with facility', phase: 'Pre-Launch', priority: 'high', due: '2026-04-28', owner: 'Lead Consultant', done: true },
+      { id: uid(), task: 'Interview dining team and kitchen staff', phase: 'Pre-Launch', priority: 'medium', due: '2026-04-30', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Assess resident dietary needs and preferences survey', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Dietitian', done: false },
+      { id: uid(), task: 'Standardize recipe cards for all core menu items', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Train kitchen staff on production sheets and portion control', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Implement weekly food cost tracking sheet', phase: 'Week 2–4', priority: 'medium', due: '2026-05-20', owner: 'Kitchen Manager', done: false },
+      { id: uid(), task: 'Complete 30-day resident satisfaction mini-survey', phase: 'Month 2–3', priority: 'medium', due: '2026-06-15', owner: 'Facility', done: false },
+      { id: uid(), task: 'Monthly food cost review and vendor invoice audit', phase: 'Ongoing', priority: 'medium', due: '', owner: 'Lead Consultant', done: false },
+    ]);
+  }
+  if (!store.get('revenues').length) {
+    store.set('revenues', [
+      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-04', status: 'paid' },
+      { id: uid(), client: 'Pineview Memory Care', service: 'Retainer', amount: '2800', month: '2026-04', status: 'invoiced' },
+      { id: uid(), client: 'Heritage Pines Retirement', service: 'Retainer', amount: '3200', month: '2026-04', status: 'pending' },
+      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Pineview Memory Care', service: 'Retainer', amount: '2800', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Lakeview Assisted Living', service: 'Audit', amount: '3500', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-02', status: 'paid' },
+      { id: uid(), client: 'Pineview Memory Care', service: 'Menu Development', amount: '6000', month: '2026-02', status: 'paid' },
+    ]);
+  }
+  if (!store.get('compliances').length) {
+    store.set('compliances', [
+      { id: uid(), title: 'HACCP Plan Update Required', client: 'Sunrise Gardens Senior Living', cat: 'HACCP', sev: 'action', body: 'Existing HACCP plan has not been reviewed since 2023. Must be updated prior to next state survey. Scheduled review week of 4/28.', due: '2026-04-28', created: '2026-04-15' },
+      { id: uid(), title: 'Dietary Aide Certifications Expiring', client: 'Pineview Memory Care', cat: 'Staff Certification', sev: 'watch', body: '3 dietary aides have ServSafe certifications expiring in June 2026. Schedule renewal training.', due: '2026-05-30', created: '2026-04-10' },
+      { id: uid(), title: 'Health Inspection – Kitchen Hood Clearance', client: 'Heritage Pines Retirement', cat: 'Health Inspection', sev: 'critical', body: 'Last inspection noted insufficient clearance on exhaust hood above grill. Facility must address before re-inspection scheduled for 5/10. Facility contact: facilities director Bob Chen.', due: '2026-05-05', created: '2026-04-18' },
+      { id: uid(), title: 'Allergen Menu Labeling Update', client: 'General', cat: 'Allergen Management', sev: 'info', body: 'New FDA guidance on Top 9 allergen labeling. Review all menus and update labels to include sesame as the 9th major allergen per FASTER Act compliance.', due: '2026-06-01', created: '2026-04-01' },
+    ]);
+  }
+}
+
+// ── Versioned migrations (append new items without wiping existing data) ──
+const DATA_VERSION = 2;
+
+function migrateData() {
+  const v = Number(localStorage.getItem('data_version') || '1');
+  if (v < 2) {
+    // ── Pipeline: Umbredo Living referral partner + Birmingham SNF targets ──
+    const prospects = store.get('prospects');
+    prospects.push(
+      {
+        id: uid(),
+        name: 'Umbredo Living — Nick (Referral Partner)',
+        contact: 'Nick, Director of Operations',
+        location: 'Birmingham, AL',
+        stage: 'discovery',
+        value: '0',
+        action: 'Schedule in-person luncheon / office meeting',
+        followup: '2026-05-05',
+        notes: 'STRATEGIC REFERRAL PARTNER — not a direct client. Nick runs ops for Umbredo Living (startup AL/MC acquirer, 4 properties closed, 5th in Columbus in progress). Has deep network in senior housing. Offered to: (1) make intro to Jewish Orthodox SNF portfolio owners, (2) carry our business plan to NIC Fall Conference Chicago, October 2026. Currently using Senior Six ($3,300/mo) for their own properties — no conflict for other operators. Keep relationship warm. He liked the report-driven weekly model.',
+      },
+      {
+        id: uid(),
+        name: 'American Eagle Senior Living (Jewish Orthodox SNF Portfolio)',
+        contact: 'Unknown — research needed',
+        location: 'New York, NY (owns ~2 Birmingham metro SNFs)',
+        stage: 'lead',
+        value: '75000',
+        action: 'Research portfolio, identify decision-maker, reach out via Nick',
+        followup: '2026-05-15',
+        notes: 'Non-profit Jewish Orthodox-owned SNF portfolio based in NYC. Nick managed their Birmingham-area portfolio at Greenbrier (~2 local facilities). Jewish Orthodox groups are the PRIMARY target for contracted food service operations — they routinely contract out 100% of dining (staffing, food, equipment, menus, POS). Full management fee model. Nick is a warm intro path. Research them before reaching out.',
+      },
+      {
+        id: uid(),
+        name: 'Jewish Orthodox SNF Portfolios — Southeast Region',
+        contact: 'Multiple groups — research via AHCA/NIC directories',
+        location: 'Southeast US',
+        stage: 'lead',
+        value: '150000',
+        action: 'Research portfolio owners via AHCA, NIC, LinkedIn; ask Nick for specific names',
+        followup: '2026-05-20',
+        notes: 'Multiple Jewish Orthodox-owned SNF companies (primarily NY and CA-based) who contract out ALL dining operations. This is the #1 target market for full contracted food service — not AL/MC operators who keep it in-house. Key insight from Nick: 99% of senior housing does NOT contract out dining. Jewish Orthodox SNF groups are the exception and actively seek full-service dining contractors. Est. value reflects potential multi-facility portfolio contract.',
+      }
+    );
+    store.set('prospects', prospects);
+
+    // ── Checklist: Business development action items from Nick conversation ──
+    const checklists = store.get('checklists');
+    checklists.push(
+      { id: uid(), task: 'Research Morrison Healthcare — website, service model, pricing, senior housing positioning', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Research Senior Six (competitor "Sherry") — service model, pricing, conference presence', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Research American Eagle Senior Living — ownership, portfolio size, Birmingham-area facilities, contact info', phase: 'Pre-Launch', priority: 'high', due: '2026-05-07', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Identify all Jewish Orthodox-owned SNF portfolios in Southeast via AHCA/NIC/LinkedIn', phase: 'Pre-Launch', priority: 'high', due: '2026-05-14', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Map local Birmingham-metro SNF and AL/MC facilities — count, ownership, contract status', phase: 'Pre-Launch', priority: 'medium', due: '2026-05-14', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Build one-page business plan / capability summary for Nick to bring to NIC Chicago (Oct 2026)', phase: 'Week 1', priority: 'high', due: '2026-05-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Develop weekly consulting report template — the "report not a phone call" differentiator vs. Senior Six', phase: 'Week 1', priority: 'high', due: '2026-05-15', owner: 'Mike', done: false },
+      { id: uid(), task: 'Schedule in-person luncheon / office meeting with Nick (Umbredo Living)', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Build service tier + pricing deck (consulting retainer vs. full contracted ops)', phase: 'Week 2–4', priority: 'medium', due: '2026-05-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Register for NIC Fall Conference — Chicago, October 2026', phase: 'Month 2–3', priority: 'high', due: '2026-06-30', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Send business plan + bio packet to Nick for NIC Chicago conference', phase: 'Month 2–3', priority: 'high', due: '2026-09-15', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Attend NIC Fall Conference Chicago — network with SNF portfolio owners, collect leads', phase: 'Month 2–3', priority: 'high', due: '2026-10-31', owner: 'Pierce/Mike', done: false },
+    );
+    store.set('checklists', checklists);
+
+    // ── Compliance: Market intelligence notes ──
+    const compliances = store.get('compliances');
+    compliances.push(
+      {
+        id: uid(),
+        title: 'Market Intel: Jewish Orthodox SNF Groups — Primary Target for Contracted Dining',
+        client: 'General / Business Dev',
+        cat: 'Other',
+        sev: 'info',
+        body: 'Per Nick (Umbredo Living, 4/20/26): Jewish Orthodox-owned SNF portfolio companies are the ONLY segment that routinely contracts out 100% of dining operations (staffing, food ordering, equipment, menus, POS — full management fee model). ~99% of AL/MC/IL operators keep dining in-house and use consultants. Skilled Nursing runs ~$13K/mo per resident; AL/MC is lower. Key groups are NY and CA-based. Nick's prior portfolio was American Eagle Senior Living (NYC-based non-profit, ~2 Birmingham facilities). Morrison Healthcare is a national full-service contractor to research. Senior Six ("Sherry") is the leading solo consultant at $3,300/mo flat.',
+        due: '',
+        created: '2026-04-20',
+      },
+      {
+        id: uid(),
+        title: 'Market Intel: NIC Fall Conference Chicago — October 2026',
+        client: 'General / Business Dev',
+        cat: 'Other',
+        sev: 'action',
+        body: 'Nick (Umbredo Living) confirmed he is attending the NIC Fall Conference in Chicago, October 2026 — the premier senior housing industry gathering. He offered to carry our business plan and make introductions to SNF portfolio owners. "Do you know anyone who can fix our dining?" comes up constantly at this event. Senior Six is also there networking. We must have a polished one-page capability summary + service deck ready by September 15 to hand Nick before he goes. Relationship-driven industry — this conference is the single best BD opportunity for 2026.',
+        due: '2026-09-15',
+        created: '2026-04-20',
+      },
+      {
+        id: uid(),
+        title: 'Competitive Intel: Senior Six (Sherry) — $3,300/mo Consulting Competitor',
+        client: 'General / Business Dev',
+        cat: 'Other',
+        sev: 'watch',
+        body: 'Senior Six is run by a solo consultant ("Sherry") at $3,300/mo flat fee. Service model: weekly strategic calls with dining director and dining room manager, focused on food cost efficiency, labor scheduling, and ordering optimization. No reports — phone/call only. Umbredo is currently her client. Nick says "the less operators that use her the better for us" — no exclusivity, she networks at all major conferences. Our differentiator: report-driven weekly deliverable (not just a call), Mike\'s restaurant operations background, and ability to scale to multiple facilities. Pricing target: $3,500–$5,000/mo.',
+        due: '',
+        created: '2026-04-20',
+      }
+    );
+    store.set('compliances', compliances);
+
+    localStorage.setItem('data_version', '2');
+  }
+}
+
+// ── Init ─────────────────────────────────────────────────────
+function renderAll() {
+  renderClients();
+  renderPipeline();
+  renderChecklist();
+  renderRevenue();
+  renderCompliance();
+}
+
+seedIfEmpty();
+migrateData();
+renderAll();
+</script>
+</body>
+</html>
