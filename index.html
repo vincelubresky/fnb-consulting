@@ -975,58 +975,96 @@ function esc(s) {
 function seedIfEmpty() {
   if (!store.get('clients').length) {
     store.set('clients', [
-      { id: uid(), name: 'Sunrise Gardens Senior Living', contact: 'Janet Morales, Director of Dining', location: 'Sacramento, CA', type: 'Full F&B Overhaul', status: 'active', start: '2026-01-15', retainer: '4500', notes: 'Full dining program restructure. Focus on texture-modified diets and resident satisfaction scores.' },
-      { id: uid(), name: 'Pineview Memory Care', contact: 'Tom Okafor, Administrator', location: 'Portland, OR', type: 'Menu Development', status: 'active', start: '2026-02-01', retainer: '2800', notes: 'Dementia-appropriate menu redesign. Finger food expansion and snack station audit in progress.' },
-      { id: uid(), name: 'Heritage Pines Retirement', contact: 'Lisa Nguyen, DON', location: 'Denver, CO', type: 'Compliance Audit', status: 'onboarding', start: '2026-04-10', retainer: '3200', notes: 'State survey prep. Kitchen walkthroughs scheduled for late April.' },
+      { id: uid(), name: 'Cahaba Crest Senior Living', contact: 'Donna Whitfield, Director of Dining', location: 'Hoover, AL', type: 'Full F&B Overhaul', status: 'active', start: '2026-01-20', retainer: '4500', notes: 'Full dining overhaul post-acquisition. Heavy focus on food cost control, resident satisfaction, and ADPH survey prep. Dining director is new — needs weekly support.' },
+      { id: uid(), name: 'Red Mountain Memory Care', contact: 'James Pate, Administrator', location: 'Homewood, AL', type: 'Menu Development', status: 'active', start: '2026-02-10', retainer: '2800', notes: 'Dementia-appropriate menu redesign. Finger food program and snack station buildout. Family satisfaction scores were low on last state survey.' },
+      { id: uid(), name: 'Shades Valley Assisted Living', contact: 'Carolyn Brooks, Executive Director', location: 'Vestavia Hills, AL', type: 'Compliance Audit', status: 'onboarding', start: '2026-04-14', retainer: '3200', notes: 'ADPH survey expected Q3. Kitchen walkthroughs and HACCP review scheduled for late April. New dietary manager just hired.' },
     ]);
   }
   if (!store.get('prospects').length) {
     store.set('prospects', [
-      { id: uid(), name: 'Oakwood Continuing Care', contact: 'Rachel Green, CEO', location: 'Austin, TX', stage: 'proposal', value: '42000', action: 'Follow up on proposal', followup: '2026-04-25', notes: 'Referred by Janet Morales. Interested in full program overhaul.' },
-      { id: uid(), name: 'Lakeview Assisted Living', contact: 'Mark Davis', location: 'Chicago, IL', stage: 'discovery', value: '18000', action: 'Discovery call scheduled', followup: '2026-04-23', notes: 'Reached out after CMS survey issues.' },
-      { id: uid(), name: 'Magnolia Court Senior Suites', contact: 'Carol White, COO', location: 'Atlanta, GA', stage: 'lead', value: '25000', action: 'Send intro email', followup: '2026-04-22', notes: 'Cold outreach, ALFA conference contact.' },
+      { id: uid(), name: 'Trussville Pines Senior Living', contact: 'Greg Hamner, COO', location: 'Trussville, AL', stage: 'proposal', value: '39600', action: 'Follow up on proposal — awaiting board approval', followup: '2026-04-28', notes: 'AL/MC community, ~80 residents. Executive director flagged dining as their #1 complaint on last resident survey. Strong fit for monthly retainer consulting.' },
+      { id: uid(), name: 'Inverness Gardens Senior Suites', contact: 'Paula Richey, Administrator', location: 'Hoover, AL', stage: 'discovery', value: '33600', action: 'Discovery call — review current food cost % and staffing ratios', followup: '2026-04-24', notes: 'Upscale AL community near Highway 280 corridor. New ownership group (private equity out of Atlanta). Kitchen director left 2 months ago — currently understaffed.' },
+      { id: uid(), name: 'Gardendale Care & Rehabilitation', contact: 'Unknown — research needed', location: 'Gardendale, AL', stage: 'lead', value: '60000', action: 'Identify administrator and ownership group; determine if Jewish Orthodox-owned', followup: '2026-05-05', notes: 'SKILLED NURSING FACILITY — priority target. SNFs are the primary market for contracted food service. Confirm ownership. If Jewish Orthodox-owned, high probability of contracted dining interest.' },
+      { id: uid(), name: 'Bessemer Health & Rehabilitation', contact: 'Unknown — research needed', location: 'Bessemer, AL', stage: 'lead', value: '60000', action: 'Research ownership, contact administrator', followup: '2026-05-10', notes: 'SKILLED NURSING FACILITY — SNF west of Birmingham. Research ownership group — if tied to NY-based Jewish Orthodox portfolio this is a direct contracted ops target.' },
+      { id: uid(), name: 'Umbredo Living — Nick (Referral Partner)', contact: 'Nick, Director of Operations', location: 'Birmingham, AL', stage: 'discovery', value: '0', action: 'Schedule in-person luncheon / office meeting in Birmingham', followup: '2026-05-05', notes: 'STRATEGIC REFERRAL PARTNER — not a direct client. Nick runs ops for Umbredo Living (startup AL/MC acquirer, 4 properties closed, 5th in Columbus underway). Deep network in senior housing. Offered to: (1) intro us to Jewish Orthodox SNF portfolio owners, (2) carry our business plan to NIC Fall Conference Chicago, October 2026. Their current consultant is Senior Six at $3,300/mo — no conflict for other operators. He liked our report-driven weekly model as a differentiator.' },
+      { id: uid(), name: 'American Eagle Senior Living (Jewish Orthodox SNF Portfolio)', contact: 'Unknown — intro via Nick (Umbredo Living)', location: 'New York, NY — owns ~2 Birmingham metro SNFs', stage: 'lead', value: '90000', action: 'Research portfolio + Birmingham facilities; request warm intro from Nick', followup: '2026-05-15', notes: 'Non-profit Jewish Orthodox-owned SNF portfolio based in NYC. Nick managed their Birmingham-area book at Greenbrier (~2 local facilities). Jewish Orthodox groups are the PRIMARY contracted dining target — they routinely outsource 100% of food service. Warm intro path through Nick.' },
+      { id: uid(), name: 'Jewish Orthodox SNF Portfolios — Alabama/Southeast', contact: 'Multiple — research via AHCA, NIC, LinkedIn', location: 'Southeast US (NY/CA ownership)', stage: 'lead', value: '200000', action: 'Research portfolio owners via AHCA/NIC directories; ask Nick for specific names at luncheon', followup: '2026-05-20', notes: 'Multiple NY and CA-based Jewish Orthodox companies own SNF clusters in the Southeast. They contract out ALL dining — the only segment that routinely does this. Est. value reflects potential multi-facility portfolio. NIC Chicago October 2026 is prime networking opportunity.' },
+      { id: uid(), name: 'Cahaba River Crossing Senior Living', contact: 'Unknown', location: 'Pelham, AL', stage: 'lead', value: '33600', action: 'Drive by, research ownership, identify administrator contact', followup: '2026-05-12', notes: 'AL community in Shelby County growth corridor. Worth cold outreach — high-growth area with newer builds that often lack experienced dining leadership.' },
+      { id: uid(), name: 'Mountain Brook Senior Suites', contact: 'Unknown', location: 'Mountain Brook, AL', stage: 'lead', value: '42000', action: 'Identify administrator, send intro letter', followup: '2026-05-19', notes: 'High-end AL community in one of Birmingham\'s wealthiest zip codes. Resident expectations and family scrutiny are very high — dining quality is a premium differentiator here.' },
     ]);
   }
   if (!store.get('checklists').length) {
     store.set('checklists', [
+      // Operational launch items
       { id: uid(), task: 'Conduct opening inventory and food cost baseline audit', phase: 'Pre-Launch', priority: 'high', due: '2026-04-28', owner: 'Lead Consultant', done: true },
-      { id: uid(), task: 'Review and update HACCP plan with facility', phase: 'Pre-Launch', priority: 'high', due: '2026-04-28', owner: 'Lead Consultant', done: true },
-      { id: uid(), task: 'Interview dining team and kitchen staff', phase: 'Pre-Launch', priority: 'medium', due: '2026-04-30', owner: 'Lead Consultant', done: false },
-      { id: uid(), task: 'Assess resident dietary needs and preferences survey', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Dietitian', done: false },
-      { id: uid(), task: 'Standardize recipe cards for all core menu items', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Review and update HACCP plan — Alabama ADPH-compliant format', phase: 'Pre-Launch', priority: 'high', due: '2026-04-28', owner: 'Lead Consultant', done: true },
+      { id: uid(), task: 'Interview dining director, kitchen staff, and dietary aides', phase: 'Pre-Launch', priority: 'medium', due: '2026-04-30', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Pull and review last ADPH state survey dining/dietary findings', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Assess resident dietary needs, textures, and preference survey', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Audit vendor relationships — US Foods, Sysco, Gordon Food Service presence in Birmingham market', phase: 'Pre-Launch', priority: 'medium', due: '2026-05-02', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Standardize recipe cards for all core menu items with Alabama sourcing in mind', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Lead Consultant', done: false },
       { id: uid(), task: 'Train kitchen staff on production sheets and portion control', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Lead Consultant', done: false },
-      { id: uid(), task: 'Implement weekly food cost tracking sheet', phase: 'Week 2–4', priority: 'medium', due: '2026-05-20', owner: 'Kitchen Manager', done: false },
-      { id: uid(), task: 'Complete 30-day resident satisfaction mini-survey', phase: 'Month 2–3', priority: 'medium', due: '2026-06-15', owner: 'Facility', done: false },
-      { id: uid(), task: 'Monthly food cost review and vendor invoice audit', phase: 'Ongoing', priority: 'medium', due: '', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Build weekly food cost tracking sheet and review cadence', phase: 'Week 2–4', priority: 'medium', due: '2026-05-20', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Complete 30-day resident satisfaction survey and report to executive director', phase: 'Month 2–3', priority: 'medium', due: '2026-06-15', owner: 'Lead Consultant', done: false },
+      { id: uid(), task: 'Monthly food cost review, vendor invoice audit, and labor efficiency report', phase: 'Ongoing', priority: 'medium', due: '', owner: 'Lead Consultant', done: false },
+      // Business development action items from Umbredo/Nick conversation
+      { id: uid(), task: 'Research Morrison Healthcare — website, service model, SNF contract pricing', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Research Senior Six (competitor "Sherry") — $3,300/mo model, what she does and does not deliver', phase: 'Pre-Launch', priority: 'high', due: '2026-04-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Map all SNF and AL/MC facilities within 30 miles of Birmingham — ownership, bed count, contact', phase: 'Pre-Launch', priority: 'high', due: '2026-05-07', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Research American Eagle Senior Living — portfolio, Birmingham-area facilities, decision-maker contact', phase: 'Pre-Launch', priority: 'high', due: '2026-05-07', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Identify Jewish Orthodox-owned SNF groups active in Alabama and Southeast via AHCA/NIC', phase: 'Week 1', priority: 'high', due: '2026-05-14', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Build weekly consulting report template — the "report not a phone call" differentiator vs. Senior Six', phase: 'Week 1', priority: 'high', due: '2026-05-15', owner: 'Mike', done: false },
+      { id: uid(), task: 'Schedule in-person luncheon or office meeting with Nick (Umbredo Living, Birmingham)', phase: 'Week 1', priority: 'high', due: '2026-05-07', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Build one-page capability summary / business plan for Nick to carry to NIC Chicago (Oct 2026)', phase: 'Week 2–4', priority: 'high', due: '2026-05-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Build service tier and pricing deck — consulting retainer vs. full contracted ops model', phase: 'Week 2–4', priority: 'medium', due: '2026-05-30', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Register for NIC Fall Conference — Chicago, October 2026', phase: 'Month 2–3', priority: 'high', due: '2026-06-30', owner: 'Pierce', done: false },
+      { id: uid(), task: 'Send polished business plan + bio packet to Nick before NIC Chicago', phase: 'Month 2–3', priority: 'high', due: '2026-09-15', owner: 'Pierce/Mike', done: false },
+      { id: uid(), task: 'Attend NIC Fall Conference Chicago — network with SNF portfolio owners, collect leads', phase: 'Month 2–3', priority: 'high', due: '2026-10-31', owner: 'Pierce/Mike', done: false },
     ]);
   }
   if (!store.get('revenues').length) {
     store.set('revenues', [
-      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-04', status: 'paid' },
-      { id: uid(), client: 'Pineview Memory Care', service: 'Retainer', amount: '2800', month: '2026-04', status: 'invoiced' },
-      { id: uid(), client: 'Heritage Pines Retirement', service: 'Retainer', amount: '3200', month: '2026-04', status: 'pending' },
-      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-03', status: 'paid' },
-      { id: uid(), client: 'Pineview Memory Care', service: 'Retainer', amount: '2800', month: '2026-03', status: 'paid' },
-      { id: uid(), client: 'Lakeview Assisted Living', service: 'Audit', amount: '3500', month: '2026-03', status: 'paid' },
-      { id: uid(), client: 'Sunrise Gardens Senior Living', service: 'Retainer', amount: '4500', month: '2026-02', status: 'paid' },
-      { id: uid(), client: 'Pineview Memory Care', service: 'Menu Development', amount: '6000', month: '2026-02', status: 'paid' },
+      { id: uid(), client: 'Cahaba Crest Senior Living', service: 'Retainer', amount: '4500', month: '2026-04', status: 'invoiced' },
+      { id: uid(), client: 'Red Mountain Memory Care', service: 'Retainer', amount: '2800', month: '2026-04', status: 'invoiced' },
+      { id: uid(), client: 'Shades Valley Assisted Living', service: 'Retainer', amount: '3200', month: '2026-04', status: 'pending' },
+      { id: uid(), client: 'Cahaba Crest Senior Living', service: 'Retainer', amount: '4500', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Red Mountain Memory Care', service: 'Retainer', amount: '2800', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Red Mountain Memory Care', service: 'Menu Development', amount: '5500', month: '2026-03', status: 'paid' },
+      { id: uid(), client: 'Cahaba Crest Senior Living', service: 'Retainer', amount: '4500', month: '2026-02', status: 'paid' },
+      { id: uid(), client: 'Inverness Gardens Senior Suites', service: 'Audit', amount: '3200', month: '2026-02', status: 'paid' },
     ]);
   }
   if (!store.get('compliances').length) {
     store.set('compliances', [
-      { id: uid(), title: 'HACCP Plan Update Required', client: 'Sunrise Gardens Senior Living', cat: 'HACCP', sev: 'action', body: 'Existing HACCP plan has not been reviewed since 2023. Must be updated prior to next state survey. Scheduled review week of 4/28.', due: '2026-04-28', created: '2026-04-15' },
-      { id: uid(), title: 'Dietary Aide Certifications Expiring', client: 'Pineview Memory Care', cat: 'Staff Certification', sev: 'watch', body: '3 dietary aides have ServSafe certifications expiring in June 2026. Schedule renewal training.', due: '2026-05-30', created: '2026-04-10' },
-      { id: uid(), title: 'Health Inspection – Kitchen Hood Clearance', client: 'Heritage Pines Retirement', cat: 'Health Inspection', sev: 'critical', body: 'Last inspection noted insufficient clearance on exhaust hood above grill. Facility must address before re-inspection scheduled for 5/10. Facility contact: facilities director Bob Chen.', due: '2026-05-05', created: '2026-04-18' },
-      { id: uid(), title: 'Allergen Menu Labeling Update', client: 'General', cat: 'Allergen Management', sev: 'info', body: 'New FDA guidance on Top 9 allergen labeling. Review all menus and update labels to include sesame as the 9th major allergen per FASTER Act compliance.', due: '2026-06-01', created: '2026-04-01' },
+      { id: uid(), title: 'ADPH Survey Prep — Shades Valley Assisted Living', client: 'Shades Valley Assisted Living', cat: 'Health Inspection', sev: 'action', body: 'Alabama Department of Public Health survey expected Q3 2026. Last survey cited dietary department for temperature logs not completed on weekends and no standardized recipe cards. Must correct both before re-survey. Kitchen walkthroughs scheduled week of 4/28. New dietary manager (hired 4/1) needs orientation to ADPH compliance standards.', due: '2026-06-30', created: '2026-04-14' },
+      { id: uid(), title: 'HACCP Plan Not Current — Cahaba Crest Senior Living', client: 'Cahaba Crest Senior Living', cat: 'HACCP', sev: 'action', body: 'HACCP plan last reviewed 2022 — pre-acquisition. Does not reflect current menu, staffing, or equipment. Must be fully rewritten in ADPH-compliant format. Scheduled for week of 4/28 site visit. Critical Control Points for cold holding and reheating are the immediate priority.', due: '2026-04-30', created: '2026-04-20' },
+      { id: uid(), title: 'ServSafe Certifications Expiring — Red Mountain Memory Care', client: 'Red Mountain Memory Care', cat: 'Staff Certification', sev: 'watch', body: '2 dietary aides and the kitchen lead have ServSafe certifications expiring June–July 2026. Alabama requires at least one certified food handler on duty per shift. Schedule renewal class through National Restaurant Association or Alabama Restaurant & Hospitality Association. Recommend group class to save cost.', due: '2026-05-31', created: '2026-04-10' },
+      { id: uid(), title: 'Top 9 Allergen Labeling — All Birmingham Clients', client: 'All Clients', cat: 'Allergen Management', sev: 'watch', body: 'FDA FASTER Act requires sesame as the 9th major allergen on all menus and labels. Review all current menus across Cahaba Crest, Red Mountain, and Shades Valley. Update printed menus, digital displays, and resident diet cards. Staff must be retrained on sesame as a new allergen. Target completion before next state survey cycle.', due: '2026-06-01', created: '2026-04-01' },
+      { id: uid(), title: 'Market Intel: Jewish Orthodox SNF Groups — Primary Contracted Dining Target', client: 'General / Business Dev', cat: 'Other', sev: 'info', body: 'Per Nick, Director of Operations at Umbredo Living (4/20/26): Jewish Orthodox-owned SNF portfolio companies are the ONLY senior housing segment that routinely contracts out 100% of dining operations — full management fee covers staffing, food ordering, equipment, menus, and POS. ~99% of AL/MC/IL operators keep dining in-house and use consultants only. Nick\'s prior portfolio (Greenbrier) included American Eagle Senior Living (NYC non-profit, Jewish Orthodox-owned, ~2 Birmingham metro facilities). Morrison Healthcare is the major full-service national contractor to benchmark. Senior Six ("Sherry") is the primary solo consultant competitor at $3,300/mo flat.', due: '', created: '2026-04-20' },
+      { id: uid(), title: 'Market Intel: NIC Fall Conference Chicago — October 2026', client: 'General / Business Dev', cat: 'Other', sev: 'action', body: 'Nick (Umbredo Living) is attending NIC Fall Conference in Chicago, October 2026 — the premier senior housing industry event. He offered to carry our business plan and make introductions to SNF portfolio owners. "Do you know anyone who can fix our dining?" is a constant question at this event. Must have polished one-page capability summary + pricing deck ready by September 15 to hand Nick before he departs. This is the single highest-leverage BD opportunity for 2026.', due: '2026-09-15', created: '2026-04-20' },
+      { id: uid(), title: 'Competitive Intel: Senior Six — $3,300/mo Consulting Competitor', client: 'General / Business Dev', cat: 'Other', sev: 'info', body: 'Senior Six is a solo consultant ("Sherry") charging $3,300/mo flat. Delivers weekly strategic calls with dining director and dining room manager — food cost, labor scheduling, ordering efficiency. Phone-only, no written reports. No exclusivity — she networks at all major conferences including NIC. Our differentiator: a formal weekly report deliverable, Mike\'s restaurant operations background, and deeper on-site engagement. Pricing target: $3,500–$5,000/mo depending on scope and facility size.', due: '', created: '2026-04-20' },
     ]);
   }
 }
 
-// ── Versioned migrations (append new items without wiping existing data) ──
-const DATA_VERSION = 2;
+// ── Versioned migrations ──────────────────────────────────────
+const DATA_VERSION = 3;
 
 function migrateData() {
-  const v = Number(localStorage.getItem('data_version') || '1');
+  const v = Number(localStorage.getItem('data_version') || '0');
+
+  if (v < 3) {
+    // Full reset to Central Alabama / Birmingham-centric data
+    localStorage.removeItem('clients');
+    localStorage.removeItem('prospects');
+    localStorage.removeItem('checklists');
+    localStorage.removeItem('revenues');
+    localStorage.removeItem('compliances');
+    localStorage.setItem('data_version', '3');
+    seedIfEmpty();
+    return;
+  }
+
   if (v < 2) {
     // ── Pipeline: Umbredo Living referral partner + Birmingham SNF targets ──
     const prospects = store.get('prospects');
