@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F&B Senior Living Consulting — Business Plan 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --green: #2d6a4f;
+    --gold: #b5883a;
+    --light: #f5f4f0;
+    --border: #ddd8cf;
+    --text: #1a1a1a;
+    --muted: #5a5a5a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: #fff;
+    font-size: 10.5pt;
+    line-height: 1.65;
+  }
+
+  /* PRINT */
+  @media print {
+    .no-print { display: none !important; }
+    body { font-size: 10pt; }
+    .page-break { page-break-before: always; }
+    section { page-break-inside: avoid; }
+  }
+
+  /* SCREEN NAV */
+  .no-print {
+    background: var(--green); color: #fff;
+    padding: 10px 32px; font-size: 0.8rem;
+    display: flex; gap: 16px; align-items: center;
+  }
+  .no-print button {
+    background: rgba(255,255,255,0.2); border: none; color: #fff;
+    padding: 6px 14px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;
+  }
+  .no-print button:hover { background: rgba(255,255,255,0.35); }
+
+  /* DOCUMENT */
+  .document { max-width: 780px; margin: 0 auto; padding: 48px 56px 64px; }
+
+  /* COVER */
+  .cover {
+    text-align: center;
+    padding: 60px 0 48px;
+    border-bottom: 2px solid var(--green);
+    margin-bottom: 48px;
+  }
+  .cover .eyebrow {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.2rem; color: var(--green); line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .cover .subtitle {
+    font-size: 1rem; color: var(--muted); margin-bottom: 32px;
+  }
+  .cover .meta {
+    display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+    font-size: 0.8rem; color: var(--muted);
+  }
+  .cover .meta span { display: flex; align-items: center; gap: 5px; }
+
+  /* SECTION */
+  section { margin-bottom: 40px; }
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.25rem; color: var(--green);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px; margin-bottom: 16px;
+  }
+  h3 { font-size: 0.9rem; font-weight: 600; color: var(--text); margin: 18px 0 8px; }
+
+  p { margin-bottom: 10px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.85rem; }
+  th {
+    background: var(--green); color: #fff;
+    text-align: left; padding: 8px 12px;
+    font-weight: 600; font-size: 0.78rem; letter-spacing: 0.03em;
+  }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: #faf9f7; }
+  tr:last-child td { border-bottom: none; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--light); border-left: 4px solid var(--green);
+    padding: 14px 18px; border-radius: 0 6px 6px 0;
+    margin: 14px 0; font-size: 0.875rem;
+  }
+  .callout.gold { border-left-color: var(--gold); }
+  .callout strong { display: block; margin-bottom: 4px; color: var(--green); }
+  .callout.gold strong { color: var(--gold); }
+
+  /* LIST */
+  ul { padding-left: 18px; margin: 8px 0; }
+  ul li { margin-bottom: 5px; }
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  ul.clean li::before { content: "→"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+
+  /* IDEAS BOX */
+  .ideas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+  .idea-card {
+    background: var(--light); border: 1px solid var(--border);
+    border-radius: 7px; padding: 14px 16px;
+  }
+  .idea-card h4 { font-size: 0.82rem; font-weight: 700; color: var(--green); margin-bottom: 5px; }
+  .idea-card p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+  /* TWO-COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* HIGHLIGHT ROW */
+  .highlight td { background: #eaf4ee !important; font-weight: 600; color: var(--green); }
+
+  /* FOOTER */
+  .doc-footer {
+    margin-top: 56px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.75rem; color: var(--muted);
+    display: flex; justify-content: space-between;
+  }
+
+  @media (max-width: 600px) {
+    .document { padding: 24px 20px; }
+    .ideas-grid, .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="no-print">
+  <span>F&amp;B Senior Living Consulting — Business Plan 2026</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<div class="document">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="eyebrow">Confidential — For Discussion Purposes</div>
+    <h1>F&amp;B Senior Living<br>Consulting</h1>
+    <div class="subtitle">Business Plan &amp; Go-to-Market Strategy &nbsp;|&nbsp; 2026</div>
+    <div class="meta">
+      <span>Vince Lubresky</span>
+      <span>Birmingham, Alabama</span>
+      <span>April 2026</span>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <section>
+    <h2>Executive Summary</h2>
+    <p>
+      Senior living operators across the country are sitting on one of the most controllable — and most neglected — cost centers in their buildings: food and beverage. Dining is typically the largest non-labor expense a facility carries, yet most operators lack the internal expertise to manage it well. The result is food cost overruns, low resident satisfaction, and high staff turnover in the kitchen.
+    </p>
+    <p>
+      This business plan outlines the launch of a focused F&B consulting practice serving senior living communities — assisted living, memory care, independent living, and skilled nursing — with an initial concentration in the Birmingham, Alabama metro area and a 150-mile regional radius.
+    </p>
+    <p>
+      We bring hands-on restaurant operations experience, institutional food service knowledge, and vendor relationships directly to the buildings that need them most. Our model is built around a weekly report-driven retainer — not a phone call, a formal deliverable — that gives operators visibility, accountability, and results without having to hire a full-time F&B director.
+    </p>
+
+    <div class="callout gold">
+      <strong>The Core Pitch</strong>
+      We pay for ourselves. Vendor savings and food cost reductions identified in the first 90 days consistently exceed the cost of the engagement. Operators get results without adding headcount.
+    </div>
+  </section>
+
+  <!-- MARKET OPPORTUNITY -->
+  <section>
+    <h2>Market Opportunity</h2>
+
+    <div class="two-col">
+      <div>
+        <h3>The Numbers</h3>
+        <ul>
+          <li>30,000+ senior living communities in the U.S.</li>
+          <li>$22B+ annual food service spend across the sector</li>
+          <li>Baby Boomer demand outpacing new supply — development has slowed, acquisitions are rising</li>
+          <li>Private equity and investor groups are buying distressed assets and need immediate operational support post-acquisition</li>
+          <li>Most mid-size operators have no dedicated F&B expertise on staff</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Why Now in Birmingham</h3>
+        <ul>
+          <li>Active acquisition market — multiple investor groups purchasing AL/MC assets in Central Alabama</li>
+          <li>New operators routinely underestimate dining complexity and need outside help fast</li>
+          <li>No dominant local F&B consulting presence</li>
+          <li>Established relationships with operators and vendors already in market</li>
+          <li>Proximity enables consistent on-site engagement — a real advantage over remote consultants</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Two Distinct Market Segments</h3>
+    <p>This business operates across two models that require different pitches and different service structures:</p>
+
+    <table>
+      <thead>
+        <tr><th>Segment</th><th>Facility Type</th><th>What They Need</th><th>Our Model</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AL / MC / IL Operators</strong></td>
+          <td>Assisted Living, Memory Care, Independent Living</td>
+          <td>Cost control, menu quality, staff support, reporting</td>
+          <td>Monthly consulting retainer + weekly report</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Jewish Orthodox SNF Portfolios</strong></td>
+          <td>Skilled Nursing Facilities</td>
+          <td>Full contracted dining operations — staffing, food, menus, POS</td>
+          <td>Full management contract (like Morrison Healthcare)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Key Insight</strong>
+      ~99% of senior living operators keep dining in-house and use consultants. The exception: Jewish Orthodox-owned SNF portfolio companies (primarily NY and CA-based) who routinely contract out 100% of dining operations under a full management fee model. These groups are the primary target for contracted operations and are actively networked through industry conferences such as the NIC Fall Conference.
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section>
+    <h2>Services &amp; Pricing</h2>
+
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Description</th><th>Pricing</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>F&amp;B Operations Audit</strong></td>
+          <td>Full review of menus, food costs, vendor contracts, staffing, and kitchen operations. Delivered as a written report with prioritized recommendations.</td>
+          <td>$3,500 – $6,500 flat</td>
+        </tr>
+        <tr>
+          <td><strong>Monthly Retainer — Consulting</strong></td>
+          <td>Weekly report delivered to executive director and dining team. Covers food cost %, labor efficiency, ordering review, and action items. Ongoing support via call.</td>
+          <td>$3,500 – $5,000/mo</td>
+        </tr>
+        <tr>
+          <td><strong>Menu Engineering</strong></td>
+          <td>Seasonal menu development, therapeutic diet integration, texture-modified programming, resident preference alignment.</td>
+          <td>$2,000 – $4,000/cycle</td>
+        </tr>
+        <tr>
+          <td><strong>Vendor Optimization</strong></td>
+          <td>Bid analysis, contract renegotiation, GPO access, ISP sourcing. Performance-based option available.</td>
+          <td>15% of identified savings</td>
+        </tr>
+        <tr>
+          <td><strong>Staff Training</strong></td>
+          <td>Kitchen operations, portion control, food safety, service standards. Session-based, delivered on-site.</td>
+          <td>$500 – $1,500/session</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Full Contracted Operations</strong></td>
+          <td>Complete management of dining department — staffing, scheduling, food ordering, menus, POS. Targeted at SNF portfolio operators.</td>
+          <td>Management fee (negotiated)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout gold">
+      <strong>Pricing Anchor</strong>
+      The primary solo competitor in this space (Senior Six) charges $3,300/month for phone-only advisory. Our retainer starts at $3,500 and delivers a formal weekly written report — a tangible deliverable operators can share with ownership groups, boards, and investors.
+    </div>
+  </section>
+
+  <!-- REVENUE PROJECTIONS -->
+  <section>
+    <h2>Revenue Projections</h2>
+
+    <table>
+      <thead>
+        <tr><th>Period</th><th>Active Clients</th><th>Avg Monthly Revenue</th><th>Projected Annual</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Months 1–3 (Launch)</td>
+          <td>1–2</td>
+          <td>$5,000 – $8,000</td>
+          <td>$20,000 – $32,000</td>
+        </tr>
+        <tr>
+          <td>Months 4–6</td>
+          <td>3–5</td>
+          <td>$10,000 – $18,000</td>
+          <td>$60,000 – $108,000</td>
+        </tr>
+        <tr>
+          <td>Months 7–12</td>
+          <td>6–10</td>
+          <td>$18,000 – $30,000</td>
+          <td>$144,000 – $240,000</td>
+        </tr>
+        <tr class="highlight">
+          <td>Year 2 Target</td>
+          <td>10–15</td>
+          <td>$30,000 – $45,000</td>
+          <td>$300,000 – $450,000</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:0.8rem;color:var(--muted);">Projections reflect retainer-based revenue only. Audit fees, vendor optimization performance fees, and contracted SNF operations revenue would be additive.</p>
+  </section>
+
+  <!-- GO TO MARKET -->
+  <section>
+    <h2>Go-to-Market Strategy</h2>
+
+    <h3>Phase 1 — Birmingham Metro (Now – Month 6)</h3>
+    <p>Lead with the local market. Birmingham and the surrounding suburbs (Hoover, Vestavia Hills, Homewood, Trussville, Mountain Brook, Gardendale, Bessemer, Pelham) represent a concentrated target pool within 30 minutes of each other. On-site presence is a genuine differentiator over remote consultants.</p>
+
+    <h3>Phase 2 — Referral Network Activation (Month 2–4)</h3>
+    <p>Senior housing is relationship-driven. The most efficient path to new clients is through operators, investors, and real estate groups already in the ecosystem. One active referral partner — a director of operations, a regional VP, a healthcare architect — is worth more than 50 cold emails.</p>
+
+    <div class="callout">
+      <strong>Active Referral Partner: Umbredo Living (Birmingham)</strong>
+      Director of Operations at Umbredo Living — a startup senior housing acquisition company with 4 closed properties and active deal flow — has offered to make introductions to Jewish Orthodox SNF portfolio owners and carry our capabilities deck to the NIC Fall Conference in Chicago (October 2026). This is a high-value, warm-relationship channel to prioritize.
+    </div>
+
+    <h3>Phase 3 — NIC Fall Conference, Chicago (October 2026)</h3>
+    <p>The National Investment Center for Seniors Housing &amp; Care (NIC) Fall Conference is the premier industry gathering — every major operator, investor, and portfolio owner attends. "Does anyone know someone who can fix our dining?" is a recurring conversation. We need a polished one-page capabilities summary and pricing overview in hand by September 15 to distribute through our referral network at the event.</p>
+
+    <h3>Key Acquisition Channels</h3>
+    <table>
+      <thead>
+        <tr><th>Channel</th><th>Strategy</th><th>Timeline</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Referral Partners</td>
+          <td>Operators, PE groups, staffing firms, architects, healthcare consultants already in market</td>
+          <td>Immediate</td>
+        </tr>
+        <tr>
+          <td>Direct Outreach</td>
+          <td>Targeted outreach to Executive Directors and Regional Directors of Ops within 150-mile radius</td>
+          <td>Month 1–2</td>
+        </tr>
+        <tr>
+          <td>LinkedIn</td>
+          <td>Thought leadership — food cost benchmarks, case studies, resident satisfaction data</td>
+          <td>Month 1</td>
+        </tr>
+        <tr>
+          <td>Industry Associations</td>
+          <td>LeadingAge Alabama, AHCA, ALFA — local chapter involvement + annual conferences</td>
+          <td>Month 2–3</td>
+        </tr>
+        <tr>
+          <td>NIC Conference</td>
+          <td>SNF portfolio owners, PE acquirers, regional operators — highest-density networking event</td>
+          <td>October 2026</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- OPERATIONS -->
+  <section>
+    <h2>Operations Plan</h2>
+
+    <h3>What We Actually Deliver — The Weekly Report Model</h3>
+    <p>The core retainer product is a formal weekly report delivered to the executive director and dining leadership. It is not a phone call. It is a document. This distinction matters to operators who answer to ownership groups, boards, and investors — they need something to show.</p>
+
+    <ul class="clean">
+      <li>Weekly food cost % vs. budget with variance explanation</li>
+      <li>Labor hours and scheduling efficiency review</li>
+      <li>Vendor invoice spot-check and ordering recommendations</li>
+      <li>Per-plate cost tracking across meal periods</li>
+      <li>3 action items for the dining director for the coming week</li>
+      <li>Monthly summary report suitable for ownership/investor review</li>
+    </ul>
+
+    <h3>12-Month Launch Timeline</h3>
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Timeline</th><th>Key Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Foundation</strong></td>
+          <td>Months 1–2</td>
+          <td>LLC formation, insurance, service agreements, RD partnership, bank account, branding</td>
+        </tr>
+        <tr>
+          <td><strong>First Clients</strong></td>
+          <td>Months 2–4</td>
+          <td>1–2 Birmingham pilot clients, deliver audits, document outcomes and savings</td>
+        </tr>
+        <tr>
+          <td><strong>Positioning</strong></td>
+          <td>Months 3–5</td>
+          <td>Website live, LinkedIn presence, capabilities deck, NIC conference registration</td>
+        </tr>
+        <tr>
+          <td><strong>Scale</strong></td>
+          <td>Months 5–8</td>
+          <td>Referral-based growth, retainer conversions, part-time support hire</td>
+        </tr>
+        <tr>
+          <td><strong>Expansion</strong></td>
+          <td>Months 8–12</td>
+          <td>Expand radius, SNF contracted ops pursuit, NIC conference networking follow-up</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Key Partners Needed</h3>
+    <ul>
+      <li><strong>Registered Dietitian</strong> — contract/part-time for clinical credibility on therapeutic diet work</li>
+      <li><strong>Attorney</strong> — service agreement templates, NDAs, SOW, liability protection</li>
+      <li><strong>Accountant</strong> — entity structure (LLC vs. S-Corp), tax planning, performance fee structuring</li>
+      <li><strong>Vendor Contacts</strong> — US Foods, Sysco, Gordon Food Service Birmingham reps for immediate client value-add</li>
+    </ul>
+  </section>
+
+  <!-- STARTUP COSTS -->
+  <section>
+    <h2>Startup Costs &amp; Financial Overview</h2>
+
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Estimated Cost</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>LLC Formation</td>
+          <td>$200 – $500</td>
+          <td>Alabama state filing + attorney review</td>
+        </tr>
+        <tr>
+          <td>Professional Liability (E&amp;O) Insurance</td>
+          <td>$1,500 – $3,000/yr</td>
+          <td>$1M minimum — required by most facility contracts</td>
+        </tr>
+        <tr>
+          <td>General Liability Insurance</td>
+          <td>$500 – $1,000/yr</td>
+          <td>Standard for on-site consulting work</td>
+        </tr>
+        <tr>
+          <td>Website &amp; Branding</td>
+          <td>$1,000 – $3,000</td>
+          <td>Professional site with case studies and ROI focus</td>
+        </tr>
+        <tr>
+          <td>Legal (Contract Templates)</td>
+          <td>$1,000 – $2,500</td>
+          <td>Service agreements, NDAs, SOW templates</td>
+        </tr>
+        <tr>
+          <td>Software &amp; Tools</td>
+          <td>$200 – $500/mo</td>
+          <td>Dashboard, project management, accounting (QuickBooks)</td>
+        </tr>
+        <tr>
+          <td>Travel &amp; Site Visits</td>
+          <td>$300 – $800/mo</td>
+          <td>Mileage, meals — minimized by Birmingham-area focus</td>
+        </tr>
+        <tr>
+          <td>Marketing &amp; Outreach</td>
+          <td>$500 – $1,500</td>
+          <td>First 3 months — capabilities deck, LinkedIn, outreach</td>
+        </tr>
+        <tr class="highlight">
+          <td><strong>Total Estimated Startup (First 3 Months)</strong></td>
+          <td><strong>$6,000 – $12,000</strong></td>
+          <td>Primary investment is time. Low overhead, service-based model.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- IDEAS / OPEN QUESTIONS -->
+  <section class="page-break">
+    <h2>Open Questions &amp; Ideas to Discuss</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:16px;">These are the strategic questions that should be answered before or during Thursday's meeting.</p>
+
+    <div class="ideas-grid">
+      <div class="idea-card">
+        <h4>1. Company Name &amp; Brand Identity</h4>
+        <p>The business has no name yet beyond "F&B Senior Living Consulting." A name matters for credibility, LinkedIn, and the capabilities deck going to NIC. What do we want to be called?</p>
+      </div>
+      <div class="idea-card">
+        <h4>2. Who Is the Face of the Business?</h4>
+        <p>Is this Vince solo? A partnership? Mike's restaurant operations background is a clear differentiator — how does his role get positioned on paper and in conversations?</p>
+      </div>
+      <div class="idea-card">
+        <h4>3. The Free Assessment as a Lead Gen Tool</h4>
+        <p>Offer a no-cost "30-minute food cost assessment" to get in the door. Pull their current food cost % and show them the gap in 30 minutes. It's a proven way to earn the paid engagement.</p>
+      </div>
+      <div class="idea-card">
+        <h4>4. What Does the Weekly Report Actually Look Like?</h4>
+        <p>This is the core product. Before the first client, build the template. A polished, branded one-page weekly report is also a sales tool — show it to prospects and let it close for you.</p>
+      </div>
+      <div class="idea-card">
+        <h4>5. Registered Dietitian Partnership</h4>
+        <p>A contracted RD adds clinical credibility for therapeutic diet work without adding payroll. Who in the Birmingham area could fill this role? UAB's dietetics program could be a source.</p>
+      </div>
+      <div class="idea-card">
+        <h4>6. Pilot Client Strategy</h4>
+        <p>Consider a discounted first engagement (e.g., $2,500/mo for 90 days) in exchange for a documented case study and testimonial. One good case study with numbers closes the next 5 clients.</p>
+      </div>
+      <div class="idea-card">
+        <h4>7. Formal Referral Fee Structure</h4>
+        <p>If Nick (Umbredo Living) or others refer clients, is there a referral fee in place? A 10–15% first-year commission is standard. Get this in writing before the first referral happens.</p>
+      </div>
+      <div class="idea-card">
+        <h4>8. The Technology Angle</h4>
+        <p>The dashboard and AI-assisted reporting is a real differentiator — most competitors are spreadsheet-and-phone. How do we productize and show this to prospects? A live demo could be a strong close.</p>
+      </div>
+      <div class="idea-card">
+        <h4>9. SNF Contracted Ops — Is That Year 1 or Year 2?</h4>
+        <p>Full contracted operations (like Morrison) is a bigger lift — staffing, hiring, equipment. Is that a Year 1 pursuit or a Year 2 growth path once consulting revenue is stable? Be honest about capacity.</p>
+      </div>
+      <div class="idea-card">
+        <h4>10. What Happens at the NIC Conference?</h4>
+        <p>Nick can carry our name into the room in Chicago, but what exactly does he hand people? We need a one-page leave-behind with a clear ask by September 15. What's the call to action on that page?</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="doc-footer">
+    <span>F&amp;B Senior Living Consulting &nbsp;|&nbsp; Vince Lubresky &nbsp;|&nbsp; Birmingham, Alabama</span>
+    <span>Confidential &nbsp;|&nbsp; April 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
