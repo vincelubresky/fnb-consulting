@@ -234,9 +234,13 @@
 <header>
   <div>
     <h1>F&amp;B Senior Living Consulting</h1>
-    <div class="subtitle">Operations &amp; Compliance Dashboard</div>
+    <div class="subtitle">Operations &amp; Business Development Dashboard &nbsp;|&nbsp; Birmingham, AL</div>
   </div>
-  <div class="header-meta" id="header-date"></div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <a href="business-plan.html" target="_blank" style="background:rgba(255,255,255,0.18);color:#fff;text-decoration:none;font-size:0.78rem;font-weight:600;padding:6px 13px;border-radius:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap;">Business Plan</a>
+    <button onclick="resetData()" style="background:rgba(255,255,255,0.1);color:#fff;font-size:0.75rem;padding:5px 11px;border-radius:6px;border:1px solid rgba(255,255,255,0.25);cursor:pointer;white-space:nowrap;" title="Clear cached data and reload fresh">Reset Data</button>
+    <div class="header-meta" id="header-date"></div>
+  </div>
 </header>
 
 <nav id="main-nav">
@@ -1047,20 +1051,27 @@ function seedIfEmpty() {
   }
 }
 
+// ── Reset helper (header button) ─────────────────────────────
+function resetData() {
+  if (!confirm('Reset all dashboard data to the latest defaults?')) return;
+  localStorage.clear();
+  location.reload();
+}
+
 // ── Versioned migrations ──────────────────────────────────────
-const DATA_VERSION = 3;
+const DATA_VERSION = 4;
 
 function migrateData() {
   const v = Number(localStorage.getItem('data_version') || '0');
 
-  if (v < 3) {
+  if (v < 4) {
     // Full reset to Central Alabama / Birmingham-centric data
     localStorage.removeItem('clients');
     localStorage.removeItem('prospects');
     localStorage.removeItem('checklists');
     localStorage.removeItem('revenues');
     localStorage.removeItem('compliances');
-    localStorage.setItem('data_version', '3');
+    localStorage.setItem('data_version', '4');
     seedIfEmpty();
     return;
   }
